@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: test_nginx:latest
+    restart: always
+    ports:
+      - "8080:8080"
+
