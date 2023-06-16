@@ -1,7 +1,7 @@
 FROM golang:1.19-alpine AS builder
 RUN apk update && apk add --no-cache ca-certificates git gcc libc-dev
 
-WORKDIR $GOPATH/src/test-nginx
+WORKDIR $GOPATH/src/nginx-test
 
 
 ENV GOSUMDB=off
@@ -13,11 +13,11 @@ RUN go mod download
 
 COPY . ./
 
-RUN CGO_ENABLED=0 go build -ldflags '-s -w' -o /go/bin/test-nginx main.go
+RUN CGO_ENABLED=0 go build -ldflags '-s -w' -o /go/bin/nginx-test main.go
 
 FROM alpine:3.17
 RUN apk add --no-cache tzdata ca-certificates libc6-compat
 
-COPY --from=builder /go/bin/test-nginx /go/bin/bountie/test-nginx
+COPY --from=builder /go/bin/nginx-test /go/bin/bountie/nginx-test
 
-ENTRYPOINT ["/go/bin/test-nginx"]
+ENTRYPOINT ["/go/bin/nginx-test"]
