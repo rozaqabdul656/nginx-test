@@ -18,6 +18,6 @@ RUN CGO_ENABLED=0 go build -ldflags '-s -w' -o /go/bin/nginx-test main.go
 FROM alpine:3.17
 RUN apk add --no-cache tzdata ca-certificates libc6-compat
 
-COPY --from=builder /go/bin/nginx-test /go/bin/bountie/nginx-test
+COPY --from=builder /go/bin/nginx-test /go/bin/nginx-test
 
 ENTRYPOINT ["/go/bin/nginx-test"]
