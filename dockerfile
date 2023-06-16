@@ -19,7 +19,5 @@ FROM alpine:3.17
 RUN apk add --no-cache tzdata ca-certificates libc6-compat
 
 COPY --from=builder /go/bin/test-nginx /go/bin/bountie/test-nginx
-COPY --from=builder /go/src/test-nginx/.env /go/src/test-nginx/.env
-COPY --from=builder /go/src/test-nginx/assets /assets
 
 ENTRYPOINT ["/go/bin/test-nginx"]
